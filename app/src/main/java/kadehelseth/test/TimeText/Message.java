@@ -71,7 +71,7 @@ public class Message {
     }
 
     /**
-     * returns the phonenumber of the person to send to as a String
+     * returns the phone number of the person to send to as a String
      * @return the Phone Number as a string
      */
     public String getPhoneNumber(){
