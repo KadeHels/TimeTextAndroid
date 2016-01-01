@@ -42,6 +42,7 @@ public class MessageSystem {
         try{
             sendTime = messQue.peek().getSendTime();
             curTime = Calendar.getInstance().getTimeInMillis();
+
         }
         catch (Exception e){
         canSend = false;
@@ -52,6 +53,7 @@ public class MessageSystem {
                 try {
                     Message messageToSend = messQue.pop();
                     sendSMS(messageToSend.getPhoneNumber(), messageToSend.getMessage());
+                    messageToSend.messageSent();
                     canSend = true;
                 }
                 catch(Exception e){
@@ -71,13 +73,13 @@ public class MessageSystem {
      */
     private void sendSMS(String phoneNumber, String messageText)
     {
-        Activity currentActivity = null;
-        currentActivity = new MainActivity();
+        Activity currentActivity = new MainActivity();
         PendingIntent pi = PendingIntent.getActivity(currentActivity, 0,
                 new Intent(currentActivity, MainActivity.class), 0);
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(phoneNumber, null, messageText, pi, null);
     }
+
     /**
      * makes sure the information sent is valid
      * @param m the message to be sent

@@ -64,7 +64,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:inputType="phone"
         android:ems="10"
         android:id="@+id/PhoneNumberField"
         android:layout_below="@+id/textLabel"
@@ -76,7 +76,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date"
+        android:text="Seconds in the future:"
         android:id="@+id/DateView"
         android:layout_below="@+id/tWarpSwitch1"
         android:layout_centerHorizontal="true" />
