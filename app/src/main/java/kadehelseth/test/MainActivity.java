@@ -1,8 +1,6 @@
 package kadehelseth.test;
 
-import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,8 +16,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import kadehelseth.test.TimeText.Message;
 import kadehelseth.test.TimeText.MessageSystem;
@@ -43,37 +39,18 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //fixme
-                final Time sendTime = new Time(Calendar.getInstance().getTimeInMillis());
-                //end fixme
-                final Message textMessage = new Message(edt.getText().toString(), phoneNumb.getText().toString(), sendTime);
-                final String tempTime = time.getText().toString();
-                final int sendingTimeMilliseconds = Integer.parseInt(tempTime) * 1000;
-                new Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        sendSMS(textMessage.getPhoneNumber(), textMessage.getMessage());
-                        toastFactory("Message Sent!");
-                    }
-                }, sendingTimeMilliseconds);
 
+                String messageText = edt.getText().toString();
+                String phoneNumber = phoneNumb.getText().toString();
+                //fixme
+                Time sendTime = new Time(Calendar.getInstance().getTimeInMillis());
+                //end fixme
+                Message textMessage = new Message(messageText, phoneNumber, sendTime);
+                system.addMessage(textMessage);
+                system.sendMessage();
 
             }
         });
-    }
-
-    /**
-     * sends the text message
-     * @param phoneNumber the number to be sent to
-     * @param messageText the message to be sent
-     */
-    private void sendSMS(String phoneNumber, String messageText)
-    {
-        Activity currentActivity = this;
-        PendingIntent pi = PendingIntent.getActivity(currentActivity, 0,
-                new Intent(currentActivity, MainActivity.class), 0);
-        SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(phoneNumber, null, messageText, pi, null);
     }
 
     @Override
@@ -98,17 +75,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * creates a toast pop up s
-     * @param m the message to be displayed
-     */
-    private void toastFactory(String m){
-        Context context = getApplicationContext();
-        CharSequence text = m;
-        int duration = Toast.LENGTH_LONG;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-    }
 
     /**
      * adds the message to the messageSystem
@@ -117,7 +83,5 @@ public class MainActivity extends AppCompatActivity {
 
         return false;
     }
-
     MessageSystem system;
 }
-
