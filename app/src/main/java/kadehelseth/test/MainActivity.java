@@ -25,7 +25,7 @@ import kadehelseth.test.TimeText.Message;
 import kadehelseth.test.TimeText.MessageSystem;
 import kadehelseth.test.TimeText.Time;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
